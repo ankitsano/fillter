@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>JavaScript Table Filter Search</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style type="text/css">
+    h3 span {
+      font-size: 22px;
+    }
+
+    h3 input.search-input {
+      width: 300px;
+      margin-left: auto;
+      float: right
+    }
+
+    .mt32 {
+      margin-top: 32px;
+    }
+
+    body {
+      background: skyblue;
+    }
+  </style>
+</head>
+
+<body class="mt32">
+  <div class="container">
+    <h3>
+
+      <input type="search" placeholder="Search your favorite cafes!" class="form-control search-input"
+        data-table="customers-list" />
+    </h3>
+    <table class="table table-striped mt32 customers-list">
+      <thead>
+        <tr>
+          <th>S No</th>
+          <th>Cafe Name</th>
+          <th>Address</th>
+          <th>Postal Code</th>
+          <th>Lat</th>
+          <th>Long</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Ashley's Cafe</td>
+          <td>Macarthur Blvd</td>
+          <td>050208</td>
+          <td>36,1152</td>
+          <td>117521</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Avenue Cafe</td>
+          <td>Gunston Dr Lexington Park</td>
+          <td>050207</td>
+          <td>36,1152</td>
+          <td>117521</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hi-Lo Cafe</td>
+          <td>45250 Worth Avenue,Unit A</td>
+          <td>050209</td>
+          <td>36,1152</td>
+          <td>117521</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>California Chicken Cafe</td>
+          <td>Macarthur Blvd</td>
+          <td>050211</td>
+          <td>36,1152</td>
+          <td>117521</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Corner Bakery Cafe</td>
+          <td>Solomos Island Road</td>
+          <td>050212</td>
+          <td>36.1152</td>
+          <td>117.521</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Philz Coffee</td>
+          <td>Macarthur Blvd</td>
+          <td>050214</td>
+          <td>36,1152</td>
+          <td>117521</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Lakeland Memory Cafe</td>
+          <td>Three Notch Road</td>
+          <td>050214</td>
+          <td>36.7783</td>
+          <td>119.4179</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Baron Memory Cafe</td>
+          <td>Ambey Mantion</td>
+          <td>050215</td>
+          <td>38.1781</td>
+          <td>118.4171 </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    (function (document) {
+      'use strict';
+
+      var TableFilter = (function (myArray) {
+        var search_input;
+
+        function _onInputSearch(e) {
+          search_input = e.target;
+          var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+          myArray.forEach.call(tables, function (table) {
+            myArray.forEach.call(table.tBodies, function (tbody) {
+              myArray.forEach.call(tbody.rows, function (row) {
+                var text_content = row.textContent.toLowerCase();
+                var search_val = search_input.value.toLowerCase();
+                row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+              });
+            });
+          });
+        }
+
+        return {
+          init: function () {
+            var inputs = document.getElementsByClassName('search-input');
+            myArray.forEach.call(inputs, function (input) {
+              input.oninput = _onInputSearch;
+            });
+          }
+        };
+      })(Array.prototype);
+
+      document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete') {
+          TableFilter.init();
+        }
+      });
+
+    })(document);
+  </script>
+</body>
+
+</html>
